@@ -6,7 +6,7 @@
 #    By: aguerrer </var/mail/aguerrer>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/06 15:44:20 by aguerrer          #+#    #+#              #
-#    Updated: 2021/08/06 18:33:58 by aguerrer         ###   ########.fr        #
+#    Updated: 2021/08/06 18:38:16 by aguerrer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,7 @@ GREEN 			= \033[0;32m
 
 NONE 			= \033[0m
 
-all:	project $(NAME)
-
-project:
-
-	@echo "Checking project..."
+all:	$(NAME)
 
 $(NAME):	$(OBJS)
 			$(CC) $(FLAGS) $(INCLUDES) -o $@ $^
