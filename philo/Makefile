@@ -6,34 +6,48 @@
 #    By: aguerrer </var/mail/aguerrer>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/06 15:44:20 by aguerrer          #+#    #+#              #
-#    Updated: 2021/08/06 15:45:15 by aguerrer         ###   ########.fr        #
+#    Updated: 2021/08/06 18:33:58 by aguerrer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
-SRCS	= philo.c activity.c monitor.c utils.c
-OBJS	= $(SRCS:.c=.o)
-HEADER	= philo.h
-CC		= gcc
-FLAGS	= -g3 -Wall -Werror -Wextra -pthread
-RM		= rm -rf
-DEPS	= $(OBJS:.o=.d)
 
-all:	$(HEADER) $(NAME)
+FLAGS	= -g3 -Wall -Werror -Wextra -pthread
+CC		= gcc
+RM		= rm -rf
+
+INCLUDES = -I ./include/
+
+SRCDIR = ./src/
+SRCS	= philo.c activity.c monitor.c utils.c
+SRCS_UTILS = ${addprefix ${SRCDIR}, ${SRCS}}
+
+OBJS	= $(SRCS_UTILS:.c=.o)
+
+RED 			= \033[0;31m
+
+GREEN 			= \033[0;32m
+
+NONE 			= \033[0m
+
+all:	project $(NAME)
+
+project:
+
+	@echo "Checking project..."
 
 $(NAME):	$(OBJS)
-			@$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+			$(CC) $(FLAGS) $(INCLUDES) -o $@ $^
 
--include $(DEPS)
+
 %.o: %.c
-			$(CC) -c $(FLAGS) -o $@ $<
+			$(CC) -c $(FLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
-			@$(RM) $(OBJS)
-			@$(RM) $(OBJS_B)
+			$(RM) $(OBJS)
 
 fclean:		clean
-			@$(RM) $(NAME)
+			$(RM) $(NAME)
 
 re:			fclean all
 
